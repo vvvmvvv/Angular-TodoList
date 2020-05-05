@@ -4,8 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently \"node server.js \" \"cd client && npm start\"",
-    "postinstall": "cd client && ng build --aot --prod"
+    "start": "concurrently \"node server.js \" \"cd client && npm start\""
   },
   "repository": {
     "type": "git",
