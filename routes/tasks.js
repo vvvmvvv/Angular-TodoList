@@ -1,69 +1,48 @@
-const express = require('express');
-const router = express.Router();
-const mongojs = require('mongojs');
+const router = require('express').Router();
+const Task = require("../models/Task");
 
-const db = mongojs(
-    'meantask',
-    ['tasks']
-)
-
-router.get('/tasks', (req, res, next) => {
-    db.tasks.find((err, tasks) => {
-        if (err) {
-            res.send(err);
-        }
+router.get('/tasks', async (req, res) => {
+    
+    try{
+        const tasks = await Task.find();
         res.json(tasks);
-    })
+    }catch(err){
+        res.json({message: err});
+    }
+});
+
+router.post('/tasks', async (req, res) => {
+    const task = new Task({
+        title: req.body.title,
+        data: Date.now()
+    });
+
+    try{
+        const savedTask = await task.save();
+        res.json(savedTask);
+    }catch(err) {
+        res.json({message: err});
+    }
+});
+
+router.delete("/task/:id", async (req, res) => {
+    try{
+        const removedTask = await Task.deleteOne({_id: req.params.id});
+        res.json(removedTask);
+    } catch(err){
+        res.json({message: err});
+    }
+    
+});
+
+router.put("/task/:id", async (req, res) => {
+    try{
+        const updatedTask = await Task.findByIdAndUpdate(req.params.id,req.body);
+        res.json(updatedTask);
+
+    }catch(err){
+        res.json({message: err});
+    }
 })
-
-router.post("/tasks", (req, res, next) => {
-    const task = req.body;
-    console.log(task);
-    if (!task.title) {
-        res.status(400).json({ error: "Bad Data" });
-    } else {
-        db.tasks.save(task, (err, task) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(task);
-        })
-    }
-});
-
-router.delete('/task/:id', (req, res) => {
-    db.tasks.remove({ _id: mongojs.ObjectID(req.params.id) }, (err, task) => {
-        if (err) {
-            res.send(err);
-        }
-        res.json(task);
-    })
-});
-
-router.put('/task/:id', (req, res) => {
-    const task = req.body;
-    const updTask = {};
-
-    if (task.title) {
-        updTask.title = task.title;
-    }
-
-    if (!updTask) {
-        res.status(400).json({ error: "Bad Data" });
-    } else {
-        db.tasks.update(
-            { _id: mongojs.ObjectID(req.params.id)},
-            updTask,
-            {},
-            (err, task) => {
-                if (err) {
-                    res.send(err);
-                }
-                res.json(task);
-            }
-        )
-    }
-
-});
 
 module.exports = router;

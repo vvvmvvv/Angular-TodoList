@@ -5,19 +5,26 @@
     <input type="submit" value="Submit" class="btn btn-success btn-lg btn-block">
 </form>
 
-<table class="table">
-    <tr *ngFor="let task of tasks">
-        <td class="text-left">
+<div class="jumbotron">
+    <ul *ngFor="let task of tasks">
+        <!-- <li class="text-left">
+            <a (click)="edit(task)">
+            <input class="inp-check" [checked]="task.isChecked" (change)="update()" type="checkbox">
+            </a>
+        </li> -->
+        <li class="text-center">
             <a (click)="edit(task)">
                 <span *ngIf="task!==editTask">{{task.title}}</span>
                 <input class="inp" *ngIf="task===editTask" [(ngModel)]="task.title" (blur)="update()" (keyup.enter)="update()">
             </a>
-        </td>
-        <td class="text-right">
+        </li>
+        <li class="text-right">
             <button class="btn btn-danger" (click)="delete(task)">Delete</button>
-        </td>
-    </tr>
-</table>
+        </li>
+        <hr>
+    </ul>
+    
+</div>
 
 <div class="card card-body bg-light text-center">
     <span class="small">*click on item to update</span>
