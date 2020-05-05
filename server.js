@@ -4,8 +4,10 @@ const mongoose = require('mongoose');
 const tasks = require("./routes/tasks");
 const cors = require('cors');
 
-const PORT = 3000;
+const PORT = 8080;
 
+// Serve only the static files form the dist directory
+app.use(express.static('./dist/{{your-app-name}}'));
 
 dotenv.config();
 
