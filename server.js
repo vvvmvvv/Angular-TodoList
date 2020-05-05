@@ -4,15 +4,14 @@ const mongoose = require('mongoose');
 const tasks = require("./routes/tasks");
 const cors = require('cors');
 const app = express();
-
-const PORT = 8080;
+const path = require('path');
 
 // Serve only the static files form the dist directory
-app.use(express.static('./dist/package.json'));
+app.use(express.static(__dirname + '/dist/client'));
 
 app.get('/*', function(req, res) {
-    res.sendFile('index.html', {root: 'dist/package.json/'});
-});
+    res.sendFile(path.join(__dirname + '/dist/client/index.html'));
+  });
 
 dotenv.config();
 
@@ -27,6 +26,6 @@ app.use(express.json());
 app.use('/api', tasks);
 app.use(express.urlencoded({ extended: true }))
 
-app.listen(PORT, () => {
-    console.log("Server started on port:" + PORT);
-})
+app.listen(process.env.PORT || 8080, ()=>{
+    console.log("Server start!")
+});

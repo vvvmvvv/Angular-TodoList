@@ -12,6 +12,7 @@
             <input class="inp-check" [checked]="task.isChecked" (change)="update()" type="checkbox">
             </a>
         </li> -->
+        <div *ngIf="!tasks">No tasks yet!</div>
         <li class="text-center">
             <a (click)="edit(task)">
                 <span *ngIf="task!==editTask">{{task.title}}</span>

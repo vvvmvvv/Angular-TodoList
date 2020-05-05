@@ -18,18 +18,18 @@ export class TasksService {
 
    getTasks(): Observable<Task[]>{
      return this.http
-        .get<Task[]>("api/tasks")
+        .get<Task[]>("http://localhost:8080/api/tasks")
         .pipe(catchError(this.handleError("getTasks", [])));
    }
 
    addTask(task: Task): Observable<Task> {
      return this.http
-     .post<Task>("api/tasks", task)
+     .post<Task>("http://localhost:8080/api/tasks", task)
      .pipe(catchError(this.handleError("addTask", task)));
    }
 
    deleteTask(id: number): Observable<{}> {
-     const url = `api/task/${id}`;
+     const url = `http://localhost:8080/api/task/${id}`;
      return this.http
       .delete(url)
       .pipe(catchError(this.handleError("deleteTask")));
@@ -37,7 +37,7 @@ export class TasksService {
 
    updateTask(task: Task): Observable<Task>{
      return this.http
-     .put<Task>(`api/task/${task._id}`, task)
+     .put<Task>(`http://localhost:8080/api/task/${task._id}`, task)
      .pipe(catchError(this.handleError("updateTask", task)));
    }
 }
