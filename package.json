@@ -8,13 +8,15 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --prod"
+    "postinstall": "ng build --output-path dist"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~9.1.1",
+    "@angular/cli": "^9.1.4",
     "@angular/common": "~9.1.1",
     "@angular/compiler": "~9.1.1",
+    "@angular/compiler-cli": "^9.1.4",
     "@angular/core": "~9.1.1",
     "@angular/forms": "~9.1.1",
     "@angular/platform-browser": "~9.1.1",
@@ -22,6 +24,7 @@
     "@angular/router": "~9.1.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "mongodb": "^3.5.7",
     "mongoose": "^5.9.12",
     "path": "^0.12.7",
     "rxjs": "~6.5.4",
