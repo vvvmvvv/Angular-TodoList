@@ -3,11 +3,16 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const tasks = require("./routes/tasks");
 const cors = require('cors');
+const app = express();
 
 const PORT = 8080;
 
 // Serve only the static files form the dist directory
-app.use(express.static('./dist/{{your-app-name}}'));
+app.use(express.static('./dist/package.json'));
+
+app.get('/*', function(req, res) {
+    res.sendFile('index.html', {root: 'dist/package.json/'});
+});
 
 dotenv.config();
 
@@ -15,7 +20,6 @@ mongoose.connect(process.env.DB_CONNECT, { useFindAndModify: false, useNewUrlPar
     console.log("Database connected!")
 );
 
-const app = express();
 app.use(cors());
 
 app.use(express.json());
