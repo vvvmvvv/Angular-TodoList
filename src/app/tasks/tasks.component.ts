@@ -15,6 +15,8 @@ export class TasksComponent implements OnInit {
   editTask: Task;
   filterValue: any;
   searchValue: string;
+  sortValue: "asc"|"desc" = "desc";
+  isSearchHaveNotResults: Boolean = false;
 
   constructor(private taskService: TasksService) { 
   }
@@ -35,12 +37,11 @@ export class TasksComponent implements OnInit {
     }
 
     const newTask: Task = {title} as Task;
-    this.taskService.addTask(newTask).subscribe(task => this.tasks.push(task));
+    this.taskService.addTask(newTask).subscribe(() => this.getTasks());
   }
 
-  delete(task: Task): void { 
-    this.tasks = this.tasks.filter(h => h !== task);
-    this.taskService.deleteTask(task._id).subscribe();
+  delete(task: Task): void {
+    this.taskService.deleteTask(task._id).subscribe(() => this.getTasks());
   }
 
   edit(task){
@@ -49,10 +50,16 @@ export class TasksComponent implements OnInit {
 
   update(task: Task){
     if(task){
-      this.taskService.updateTask(task).subscribe(task => {
-        this.getTasks();
-      });
+      this.taskService.updateTask(task).subscribe(() => this.getTasks());
       this.editTask = undefined;
     }
+  }
+
+  isTasksNotExist(): Boolean {
+    return this.tasks && !this.tasks.length;
+  }
+
+  setSearchResultStatus(status) {
+    this.isSearchHaveNotResults = status;
   }
 }

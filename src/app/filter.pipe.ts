@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(value: any[], filterBy: any, filterValue: any): any[] {
+  transform(value: any[], filterBy: any, filterValue: any, resultStatus?: any): any[] {
     if (filterValue === undefined) {
       return value;
     }
@@ -15,7 +15,10 @@ export class FilterPipe implements PipeTransform {
         return value;
       }
       
-      return value.filter(el => el[filterBy].includes(filterValue));
+      const filteredValue = value.filter(el => el[filterBy].includes(filterValue));
+      resultStatus = !filteredValue.length;
+
+      return filteredValue;
     }
 
     return value.filter((el) => el[filterBy] === filterValue);

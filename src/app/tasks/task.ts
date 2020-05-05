@@ -1,6 +1,6 @@
 export interface Task {
     _id: number;
     title: string;
-    date: Date;
+    dates: Date;
     isChecked: Boolean;
 }

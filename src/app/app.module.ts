@@ -9,10 +9,11 @@ import { TasksComponent } from './tasks/tasks.component';
 import { HttpErrorHandler } from './services/http-error-handler.service';
 import { MessageService } from './services/message.service';
 import { FilterPipe } from './filter.pipe';
+import { SortPipe } from './sort.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent, TasksComponent, FilterPipe
+    AppComponent, TasksComponent, FilterPipe, SortPipe
   ],
   imports: [
     BrowserModule,

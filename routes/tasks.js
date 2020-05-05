@@ -13,8 +13,7 @@ router.get('/tasks', async (req, res) => {
 
 router.post('/tasks', async (req, res) => {
     const task = new Task({
-        title: req.body.title,
-        data: Date.now()
+        title: req.body.title
     });
 
     try{

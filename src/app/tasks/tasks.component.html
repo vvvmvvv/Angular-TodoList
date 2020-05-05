@@ -6,29 +6,39 @@
 </form>
 
 <div class="jumbotron">
-    <input type="text" [(ngModel)]="searchValue">
-    <select name="filterValue" [(ngModel)]="filterValue">
-        <option [ngValue]="true">Checked</option>
-        <option [ngValue]="false">Not Checked</option>
-        <option [ngValue]="undefined">All</option>
-    </select>
-    <div *ngIf="!tasks.length">No tasks yet!</div>
-    <ul *ngFor="let task of tasks | filter:'isChecked':filterValue | filter:'title':searchValue">
-        <li class="text-left">
-            <input class="inp-check" [(ngModel)]="task.isChecked"  (change)="update(task)" type="checkbox">
-        </li>
-        <li class="text-center">
-            <a (click)="edit(task)">
-                <span *ngIf="task!==editTask">{{task.title}}</span>
-                <input class="inp" *ngIf="task===editTask" [(ngModel)]="task.title" (blur)="update(task)" (keyup.enter)="update(task)">
-            </a>
-        </li>
-        <li class="text-right">
-            <button class="btn btn-danger" (click)="delete(task)">Delete</button>
-        </li>
-        <hr>
-    </ul>
-    
+    <div *ngIf="isTasksNotExist()">No tasks yet!</div>
+    <div *ngIf="!isTasksNotExist()">
+        <input type="text" [(ngModel)]="searchValue">
+        <select name="filterValue" [(ngModel)]="filterValue">
+            <option [ngValue]="true">Checked</option>
+            <option [ngValue]="false">Not Checked</option>
+            <option [ngValue]="undefined">All</option>
+        </select>
+        <select name="sortValue" [(ngModel)]="sortValue">
+            <option value="desc">newest</option>
+            <option value="asc">latest</option>
+        </select>
+
+        <div *ngIf="isSearchHaveNotResults">No search results</div>
+        <ul *ngFor="let task of tasks | filter:'isChecked':filterValue | filter:'title':searchValue:isSearchHaveNotResults | sort:'dates':sortValue">
+            <li class="text-left">
+                <input class="inp-check" [(ngModel)]="task.isChecked"  (change)="update(task)" type="checkbox">
+            </li>
+            <li class="text-center">
+                <a (click)="edit(task)">
+                    <span *ngIf="task!==editTask">{{task.title}}</span>
+                    <input class="inp" *ngIf="task===editTask" [(ngModel)]="task.title" (blur)="update(task)" (keyup.enter)="update(task)">
+                </a>
+            </li>
+            <li>
+                <small>{{task.dates | date:'medium'}}</small>
+            </li>
+            <li class="text-right">
+                <button class="btn btn-danger" (click)="delete(task)">Delete</button>
+            </li>
+            <hr>
+        </ul>
+    </div>    
 </div>
 
 <div class="card card-body bg-light text-center">
