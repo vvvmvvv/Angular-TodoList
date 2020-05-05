@@ -8,10 +8,11 @@ import { AppComponent } from './app.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { HttpErrorHandler } from './services/http-error-handler.service';
 import { MessageService } from './services/message.service';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent, TasksComponent
+    AppComponent, TasksComponent, FilterPipe
   ],
   imports: [
     BrowserModule,

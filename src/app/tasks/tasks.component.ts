@@ -13,6 +13,8 @@ import {TasksService} from '../services/tasks.service';
 export class TasksComponent implements OnInit {
   tasks: Task[];
   editTask: Task;
+  filterValue: any;
+  searchValue: string;
 
   constructor(private taskService: TasksService) { 
   }
@@ -45,13 +47,10 @@ export class TasksComponent implements OnInit {
     this.editTask = task;
   }
 
-  update(){
-    if(this.editTask){
-      this.taskService.updateTask(this.editTask).subscribe(task => {
-        const ix = task ? this.tasks.findIndex(h => h._id === task._id) : -1;
-        if(ix > -1){
-          this.tasks[ix] = task;
-        }
+  update(task: Task){
+    if(task){
+      this.taskService.updateTask(task).subscribe(task => {
+        this.getTasks();
       });
       this.editTask = undefined;
     }

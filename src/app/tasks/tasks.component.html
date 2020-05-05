@@ -6,17 +6,21 @@
 </form>
 
 <div class="jumbotron">
-    <ul *ngFor="let task of tasks">
-        <!-- <li class="text-left">
-            <a (click)="edit(task)">
-            <input class="inp-check" [checked]="task.isChecked" (change)="update()" type="checkbox">
-            </a>
-        </li> -->
-        <div *ngIf="!tasks">No tasks yet!</div>
+    <input type="text" [(ngModel)]="searchValue">
+    <select name="filterValue" [(ngModel)]="filterValue">
+        <option [ngValue]="true">Checked</option>
+        <option [ngValue]="false">Not Checked</option>
+        <option [ngValue]="undefined">All</option>
+    </select>
+    <div *ngIf="!tasks.length">No tasks yet!</div>
+    <ul *ngFor="let task of tasks | filter:'isChecked':filterValue | filter:'title':searchValue">
+        <li class="text-left">
+            <input class="inp-check" [(ngModel)]="task.isChecked"  (change)="update(task)" type="checkbox">
+        </li>
         <li class="text-center">
             <a (click)="edit(task)">
                 <span *ngIf="task!==editTask">{{task.title}}</span>
-                <input class="inp" *ngIf="task===editTask" [(ngModel)]="task.title" (blur)="update()" (keyup.enter)="update()">
+                <input class="inp" *ngIf="task===editTask" [(ngModel)]="task.title" (blur)="update(task)" (keyup.enter)="update(task)">
             </a>
         </li>
         <li class="text-right">
