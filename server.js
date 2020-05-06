@@ -1,7 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const cors = require('cors');
+//const cors = require('cors');
 const app = express();
 const path = require('path');
 
@@ -13,7 +13,7 @@ mongoose.connect(process.env.DB_CONNECT, { useFindAndModify: false, useNewUrlPar
     console.log("Database connected!")
 );
 
-app.use(cors());
+//app.use(cors());
 
 app.use(express.json());
 
@@ -40,11 +40,13 @@ const taskSchema = new mongoose.Schema({
 const Task = mongoose.model('tasks', taskSchema );
 
 app.get('/api/tasks', async (req, res) => {
-    
+    console.log("api/tasks ----here!!!!s");
     try{
+        console.log("api/tasks ----here!!!!s");
         const tasks = await Task.find();
         res.json(tasks);
     }catch(err){
+        console.log("api/tasks ----error!!!!s");
         res.json({message: err});
     }
 });
