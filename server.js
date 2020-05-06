@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 const app = express();
 const path = require('path');
 
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static('./dist/angular-heroku'));
+//app.use(express.static(__dirname + '/dist'));
 
 dotenv.config();
 
@@ -44,6 +45,7 @@ app.get('/api/tasks', async (req, res) => {
     try{
         console.log("api/tasks ----here!!!!s");
         const tasks = await Task.find();
+        console.log("ВСЕ ЗНАЙШОВ!");
         res.json(tasks);
     }catch(err){
         console.log("api/tasks ----error!!!!s");
@@ -84,8 +86,8 @@ app.put("/api/task/:id", async (req, res) => {
     }
 })
 
-app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/dist/index.html'));
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/dist/angular-heroku/index.html'));
   });
 
 
