@@ -8,9 +8,7 @@ const path = require('path');
 app.use(express.static('./dist/angular-heroku'));
 //app.use(express.static(__dirname + '/dist'));
 
-dotenv.config();
-
-mongoose.connect(process.env.DB_CONNECT, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true}, () => 
+mongoose.connect('mongodb+srv://vvvmvvv:000138624Vm@cluster0-bkwpe.mongodb.net/test?retryWrites=true&w=majority', { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true}, () => 
     console.log("Database connected!")
 );
 
