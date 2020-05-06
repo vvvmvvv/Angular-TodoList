@@ -39,13 +39,15 @@ const taskSchema = new mongoose.Schema({
 const Task = mongoose.model('tasks', taskSchema );
 
 app.get('/api/tasks', async (req, res) => {
-    const test = {i: 5}
     console.log("api/tasks ----here!!!!s");
     try{
         console.log("api/tasks ----here!!!!s");
-        //const tasks = await Task.find();
-        console.log("ВСЕ ЗНАЙШОВ!");
-        res.json({tests: test});
+        await Task.find({}, (err, tasks) => {
+            if(err){
+                console.error(err + "----------")
+            }
+            res.json(tasks);
+        });
     }catch(err){
         console.log("api/tasks ----error!!!!s");
         res.json({message: err});
