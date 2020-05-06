@@ -5,7 +5,7 @@ const cors = require('cors');
 const app = express();
 const path = require('path');
 
-app.use(express.static(__dirname + '/dist/client'));
+app.use(express.static(__dirname + '/dist'));
 
 dotenv.config();
 
@@ -83,7 +83,7 @@ app.put("/api/task/:id", async (req, res) => {
 })
 
 app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/dist/client/index.html'));
+    res.sendFile(path.join(__dirname + '/dist/index.html'));
   });
 
 
