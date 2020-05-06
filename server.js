@@ -86,9 +86,9 @@ app.put("/api/task/:id", async (req, res) => {
     }
 })
 
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/dist/angular-heroku/index.html'));
-  });
+// app.get('/*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '/dist/angular-heroku/index.html'));
+//   });
 
 
 app.listen(process.env.PORT || 8080, ()=>{
