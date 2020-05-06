@@ -44,9 +44,12 @@ app.get('/api/tasks', async (req, res) => {
         console.log("api/tasks ----here!!!!s");
         await Task.find({}, (err, tasks) => {
             if(err){
-                console.error(err + "----------")
+                console.log("BAD BAD!");
+                console.log(err + "----------");
+            }else{
+                console.log("All okey!")
+                res.json(tasks);
             }
-            res.json(tasks);
         });
     }catch(err){
         console.log("api/tasks ----error!!!!s");
