@@ -1,10 +1,11 @@
 <div class="contur">
     <div class="center-block">
-        <form class="form" (submit)="add(taskTitle.value); taskTitle.value=''">
+        <form class="form" (submit)="add(taskTitle.value); taskTitle.value=''" required>
             <div class="form-group">
                 <input #taskTitle class="form-control" placeholder="Task Name" />
             </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fas fa-edit"></i> Create Task</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fas fa-edit"></i> Create
+                Task</button>
         </form>
     </div>
 </div>
@@ -16,17 +17,21 @@
     <div class="contur">
         <div class="functions">
             <div class="functions__search">
-                <span><i class="fas fa-search"></i> Search: </span><input type="text" [(ngModel)]="searchValue">
+                <span><i class="fas fa-search"></i> Search: </span><input type="text" class="form-control"
+                    [(ngModel)]="searchValue">
             </div>
             <div class="functions__filter">
-                <span><i class="fas fa-filter"></i> Filter by: </span><select name="filterValue" [(ngModel)]="filterValue">
+
+                <span><i class="fas fa-filter"></i> Filter by: </span><select class="custom-select" name="filterValue"
+                    [(ngModel)]="filterValue">
                     <option [ngValue]="true">Checked</option>
                     <option [ngValue]="false">Not Checked</option>
                     <option [ngValue]="undefined">All</option>
                 </select>
             </div>
             <div class="functions__sort">
-                <span><i class="fas fa-sort"></i> Sort by: </span><select name="sortValue" [(ngModel)]="sortValue">
+                <span><i class="fas fa-sort"></i> Sort by: </span><select name="sortValue" class="custom-select"
+                    [(ngModel)]="sortValue">
                     <option value="desc">newest</option>
                     <option value="asc">latest</option>
                 </select>
@@ -34,32 +39,38 @@
         </div>
     </div>
     <hr>
-    <span class="small">*click on task to update</span>
+    <span class="small">*click on task to update and click ENTER to save </span>
     <div *ngIf="isSearchHaveNotResults">No search results!</div>
     <div class="jumbotron">
-        <ul
-            *ngFor="let task of tasks | filter:'isChecked':filterValue | filter:'title':searchValue:isSearchHaveNotResults | sort:'dates':sortValue">
-            <li class="text-left">
-                <input class="inp-check" [(ngModel)]="task.isChecked" (change)="update(task)" type="checkbox">
-            </li>
-            <li class="text-center">
-                <a (click)="edit(task)">
-                    <span *ngIf="task!==editTask">{{task.title}}</span>
-                    <input class="inp" *ngIf="task===editTask" [(ngModel)]="task.title" (blur)="update(task)"
-                        (keyup.enter)="update(task)">
-                </a>
-            </li>
-            <p class="text-left">
-                <small>{{task.dates | date:'medium'}}</small>
-            </p>
-            <li class="text-right">
-                <button class="btn btn-danger" (click)="delete(task)"><i class="far fa-trash-alt"></i> Delete</button>
-            </li>
-            <hr>
-        </ul>
+        <div class="task-wrapper">
+            <ul class="task"
+                *ngFor="let task of tasks | filter:'isChecked':filterValue | filter:'title':searchValue:isSearchHaveNotResults | sort:'dates':sortValue">
+                <li class="task__item" class="text-left">
+                    <input class="inp-check" [(ngModel)]="task.isChecked" (change)="update(task)" type="checkbox">
+                </li>
+                <li class="text-lg-center" (click)="edit(task)">
+                    <div class="form-group">
+                        <textarea *ngIf="task===editTask" [(ngModel)]="task.title" (blur)="update(task)"
+                            (keyup.enter)="update(task)" class="form-control" row="4">
+                            </textarea>
+                        <p *ngIf="task!==editTask">
+                            {{task.title}}
+                        </p>
+                    </div>
+                </li>
+                <li class="text-left">
+                    <small>{{task.dates | date:'medium'}}</small>
+                </li>
+                <li class="text-right">
+                    <button class="text-right btn btn-danger" (click)="delete(task)"><i class="far fa-trash-alt"></i>
+                        Delete</button>
+                </li>
+                <hr>
+            </ul>
+        </div>
     </div>
-    <div class="card card-body bg-light text-center">
-        <span class="small">*click on item to update</span>
-    </div>
-</div>
 
+</div>
+<div *ngIf="!tasks" class="spinner-border d-block mx-auto" role="status">
+    <span class="sr-only">Loading...</span>
+</div>

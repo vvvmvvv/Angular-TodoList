@@ -14,20 +14,20 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/api', tasks);
 
-mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true , useNewUrlParser: true, useFindAndModify: false }, function (err) {
+mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, function (err) {
   if (err) {
-      console.log(process.env.MONGODB_URI);
+    console.log(process.env.MONGODB_URI);
     console.log(err);
     process.exit(1);
   }
   console.log("Database connection ready");
 
   var server = app.listen(process.env.PORT || 8080, function () {
-  var port = server.address().port;
+    var port = server.address().port;
     console.log("App now running on port", port);
   });
 });
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/dist/angular-heroku/index.html'));
-  });
+  res.sendFile(path.join(__dirname, '/dist/angular-heroku/index.html'));
+});

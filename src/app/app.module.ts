@@ -8,8 +8,8 @@ import { AppComponent } from './app.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { HttpErrorHandler } from './services/http-error-handler.service';
 import { MessageService } from './services/message.service';
-import { FilterPipe } from './filter.pipe';
-import { SortPipe } from './sort.pipe';
+import { FilterPipe } from './myPipes/filter.pipe';
+import { SortPipe } from './myPipes/sort.pipe';
 
 @NgModule({
   declarations: [
