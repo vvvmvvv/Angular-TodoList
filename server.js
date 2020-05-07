@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/api', tasks);
 
-mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true , useNewUrlParser: true }, function (err) {
+mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true , useNewUrlParser: true, useFindAndModify: false }, function (err) {
   if (err) {
       console.log(process.env.MONGODB_URI);
     console.log(err);

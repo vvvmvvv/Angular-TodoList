@@ -1,3 +1,17 @@
+.contur{
+    padding: 30px;
+    background-color: black;
+    color: white;
+    border-radius: 13px;
+}
+.center-block{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin: 10px auto;
+    max-width: 700px;
+
+}
 .inp{
     height: 45px;
     width: 600px;
@@ -14,3 +28,10 @@ ul{
     height: 30px;
     width: 30px;
 }
+
+.functions{
+    display: flex;
+    justify-content: space-around;
+
+}
+
